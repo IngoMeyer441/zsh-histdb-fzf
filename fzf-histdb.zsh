@@ -165,7 +165,7 @@ histdb-detail(){
       where ${where})
   "
 
-  array_str=("${$(sqlite3 -cmd ".timeout 1000" "${HISTDB_FILE}" -separator " " "$query" )}")
+  array_str=("${$(sqlite3 -cmd ".timeout 1000" -noheader "${HISTDB_FILE}" -separator " " "$query" )}")
   array=(${(@s: :)array_str})
 
   histdb-fzf-log "DETAIL: ${array_str}"
@@ -206,7 +206,7 @@ histdb-get-command(){
     where
       history.id='${CMD_ID}'
   "
-  printf "%s" "$(sqlite3 -cmd ".timeout 1000" "${HISTDB_FILE}" "$query")"
+  printf "%s" "$(sqlite3 -cmd ".timeout 1000" -noheader "${HISTDB_FILE}" "$query")"
 }
 
 histdb-fzf-widget() {
